@@ -7,7 +7,6 @@ const Box = styled.div<{ isEditing?: boolean }>`
   align-items: center;
   padding: ${proos => (proos.isEditing ? '15px 0px' : '15px 25px')};
   width: 100%auto;
-  font-size: 1.1em;
   border-bottom: 1px solid #eee;
 `;
 
@@ -18,13 +17,13 @@ const Input = styled.input`
 `;
 
 export default function TodoInput({
-  setTodoList,
+  addTodo,
   isEditing,
   editContent,
   editModeTodo,
   editTodo,
 }: {
-  setTodoList?: (todo: ITodoItem) => void;
+  addTodo?: (content: string) => void;
   isEditing?: boolean;
   editContent?: string;
   editTodo?: (content: string) => void;
@@ -49,16 +48,9 @@ export default function TodoInput({
             if (isEditing) {
               editTodo && editTodo(content);
             } else {
-              setTodoList &&
-                setTodoList({
-                  id: '0',
-                  content: content,
-                  completed: false,
-                  editing: false,
-                });
+              addTodo && addTodo(content);
+              setContent('');
             }
-
-            setContent('');
           }}
         />
       </Box>
